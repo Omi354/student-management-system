@@ -39,6 +39,7 @@ public class StudentInfoManager {
     for (Student student : studentList) {
       System.out.println(student);
     }
+    System.out.println("");
   }
 
 
