@@ -12,6 +12,7 @@ public class StudentInfoManager {
 
   public void addStudent(String fullName, double testScore) {
     studentList.add(new Student(fullName, testScore));
+
   }
 
   public void removeStudent(String fullName) {
@@ -27,7 +28,7 @@ public class StudentInfoManager {
 
   public void calculateAveragePoint(List<Student> studentList) {
     double averageTestScore = studentList.stream()
-        .map(v -> v.getTestScore())
+        .map(Student::getTestScore)
         .mapToDouble(Double::doubleValue)
         .average()
         .orElse(Double.NaN);
