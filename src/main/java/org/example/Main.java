@@ -54,18 +54,18 @@ public class Main {
             executeAdditionalProcess(scanner, studentInfoManager);
           }
           case 2 -> {
-            executeRemovalProcess(scanner, studentList, studentInfoManager);
+            executeRemovalProcess(scanner, studentInfoManager);
           }
           case 3 -> {
-            executeChangeProcess(scanner, studentList, studentInfoManager);
+            executeChangeProcess(scanner, studentInfoManager);
           }
           case 4 -> {
             // 平均点の計算
-            studentInfoManager.calculateAveragePoint(studentList);
+            studentInfoManager.calculateAveragePoint();
           }
           case 5 -> {
             // 全学生の情報を表示
-            studentInfoManager.showAllStudentInfo(studentList);
+            studentInfoManager.showAllStudentInfo();
           }
           case 6 -> {
             scanner.close();
@@ -85,15 +85,12 @@ public class Main {
     }
   }
 
-  private static void executeChangeProcess(Scanner scanner, List<Student> studentList,
-      StudentInfoManager studentInfoManager) {
+  private static void executeChangeProcess(Scanner scanner, StudentInfoManager studentInfoManager) {
     // 点数の更新
     System.out.println("学生の名前を入力してください: ");
     String updatedStudentName = scanner.nextLine();
 
-    Optional<Student> confirmedStudent = studentList.stream()
-        .filter(v -> v.getFullName().equals(updatedStudentName))
-        .findFirst();
+    Optional<Student> confirmedStudent = studentInfoManager.getConfirmedStudent(updatedStudentName);
 
     confirmedStudent.ifPresentOrElse(
         student -> {
@@ -110,14 +107,12 @@ public class Main {
     );
   }
 
-  private static void executeRemovalProcess(Scanner scanner, List<Student> studentList,
+  private static void executeRemovalProcess(Scanner scanner,
       StudentInfoManager studentInfoManager) {
     System.out.println("学生の名前を入力してください: ");
     String removedStudentName = scanner.nextLine();
 
-    Optional<Student> confirmedStudent = studentList.stream()
-        .filter(v -> v.getFullName().equals(removedStudentName))
-        .findFirst();
+    Optional<Student> confirmedStudent = studentInfoManager.getConfirmedStudent(removedStudentName);
 
     confirmedStudent.ifPresentOrElse(
         student -> {

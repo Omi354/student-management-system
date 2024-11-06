@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.List;
+import java.util.Optional;
 
 public class StudentInfoManager {
 
@@ -26,7 +27,7 @@ public class StudentInfoManager {
     updatedStudent.setTestScore(testScore);
   }
 
-  public void calculateAveragePoint(List<Student> studentList) {
+  public void calculateAveragePoint() {
     double averageTestScore = studentList.stream()
         .map(Student::getTestScore)
         .mapToDouble(Double::doubleValue)
@@ -35,12 +36,19 @@ public class StudentInfoManager {
     System.out.println("平均点: " + averageTestScore + "点");
   }
 
-  public void showAllStudentInfo(List<Student> studentList) {
+  public void showAllStudentInfo() {
     System.out.println("学生一覧：");
     for (Student student : studentList) {
       System.out.println(student);
     }
     System.out.println("");
+  }
+
+  public Optional<Student> getConfirmedStudent(String fullName) {
+    return studentList.stream()
+        .filter(v -> v.getFullName().equals(fullName))
+        .findFirst();
+
   }
 
 
