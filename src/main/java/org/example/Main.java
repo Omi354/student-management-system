@@ -134,7 +134,8 @@ public class Main {
       // 学生の追加処理
       System.out.println("学生の名前を入力してください: ");
       String addedStudentName = scanner.nextLine();
-      if (!addedStudentName.isEmpty() && !addedStudentName.matches(".*\\d.*")) {
+      if (!addedStudentName.isEmpty() && addedStudentName.matches(
+          "[\\p{IsHan}\\p{IsHiragana}\\p{IsKatakana}A-Za-z\\s\u3000]+")) {
         System.out.println(addedStudentName + "の点数を入力してください: ");
         double addedTestScore = scanner.nextDouble();
         // コンソールの改行を削除
@@ -146,11 +147,13 @@ public class Main {
         break;
       } else if (addedStudentName.isEmpty()) {
         System.out.println("学生名が空白です。");
-      } else if (addedStudentName.matches(".*\\d.*")) {
-        System.out.println("数字は入力できません");
-      } else {
+      } else if (!addedStudentName.matches(
+          "[\\p{IsHan}\\p{IsHiragana}\\p{IsKatakana}A-Za-z\\s\u3000]+")) {
         System.out.println(
             "全角の漢字、ひらがな、カタカナ、アルファベットまたはスペースのみ入力してください");
+      } else {
+        System.out.println(
+            "予期しない入力を検知しました。全角の漢字、ひらがな、カタカナ、アルファベットまたはスペースのみ入力してください");
       }
     }
   }
